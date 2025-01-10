@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should be able to transform scss 1`] = `
+"html,
+body {
+  background-color: #12c344;
+}
+
+.bar {
+  color: greenyellow;
+}
+
+.foo {
+  color: green;
+}"
+`;

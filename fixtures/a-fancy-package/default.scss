@@ -1,0 +1,5 @@
+@use "colors";
+html,
+body {
+    background-color: colors.$green;
+}
