@@ -1,6 +1,6 @@
 # @forsakringskassan/sass-module-importer
 
-Import sass files from `node_modules/`, works with and without webpack (`~`)-prefix.
+Import sass files from packages in `node_modules/`, works with and without webpack (`~`)-prefix.
 
 ```scss
 @import "@fkui/design/fil.scss";
@@ -9,7 +9,7 @@ Import sass files from `node_modules/`, works with and without webpack (`~`)-pre
 
 ## Installation
 
-`npm run --save-dev`
+`npm run --save-dev @forsakringskassan/sass-module-importer`
 
 ## Usage (esm only)
 
@@ -19,7 +19,7 @@ In your sass compile script, add the importer:
 import { compileStringAsync } from "sass";
 import { moduleImporter } from "./module-importer";
 
-const result = await compileStringAsync(mySCC, {
+const result = await compileStringAsync(mySCSS, {
     importers: [moduleImporter],
 });
 ```
