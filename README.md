@@ -17,7 +17,7 @@ In your sass compile script, add the importer:
 
 ```javascript
 import { compileStringAsync } from "sass";
-import { moduleImporter } from "./module-importer";
+import { moduleImporter } from "@forsakringskassan/sass-module-importer";
 
 const result = await compileStringAsync(mySCSS, {
     importers: [moduleImporter],
