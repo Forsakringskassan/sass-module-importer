@@ -24,7 +24,9 @@ export const moduleImporter = {
         for (const variant of search) {
             try {
                 const moduleName = path.posix.join(directory, variant);
-                const resolved = require.resolve(moduleName);
+                const resolved = require.resolve(moduleName, {
+                    paths: [process.cwd()],
+                });
                 return new URL(pathToFileURL(resolved));
             } catch (err) {
                 if (err.code !== "MODULE_NOT_FOUND") {
