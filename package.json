@@ -1,6 +1,6 @@
 {
   "name": "@forsakringskassan/sass-module-importer",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "sass module importer",
   "keywords": [
     "sass",
