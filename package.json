@@ -23,7 +23,6 @@
   ],
   "scripts": {
     "build": "node build.mjs",
-    "postpack": "npm-pkg-lint",
     "eslint": "eslint .",
     "eslint:fix": "eslint . --fix",
     "lint": "run-s eslint prettier:check",
