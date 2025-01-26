@@ -9,7 +9,7 @@ Import sass files from packages in `node_modules/`, works with and without webpa
 
 ## Installation
 
-`npm run --save-dev @forsakringskassan/sass-module-importer`
+`npm install --save-dev @forsakringskassan/sass-module-importer`
 
 ## Usage (esm only)
 
