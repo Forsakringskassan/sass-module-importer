@@ -1,6 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`should be able to transform scss 1`] = `
+exports[`should be able to transform scss using package with exports 1`] = `
+"span {
+  color: pink;
+}
+
+body {
+  color: orange;
+}
+
+.foo {
+  color: green;
+}"
+`;
+
+exports[`should be able to transform scss using package with main field 1`] = `
+".main {
+  color: blue;
+}
+
+.foo {
+  color: green;
+}"
+`;
+
+exports[`should be able to transform scss using package with sass fields 1`] = `
+".main {
+  color: green;
+}
+
+.foo {
+  color: green;
+}"
+`;
+
+exports[`should be able to transform scss using package without exports and main fields 1`] = `
 "html,
 body {
   background-color: #12c344;
