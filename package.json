@@ -18,8 +18,10 @@
   "exports": {
     ".": "./dist/importer.js"
   },
+  "types": "./importer.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "importer.d.ts"
   ],
   "scripts": {
     "build": "node build.mjs",

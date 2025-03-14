@@ -4,3 +4,4 @@ test-results/
 .jest-cache/
 dist/
 *.tgz
+importer.d.ts
