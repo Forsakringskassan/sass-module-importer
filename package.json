@@ -60,7 +60,7 @@
     "lint-staged": "15.5.2",
     "npm-pkg-lint": "3.10.11",
     "npm-run-all2": "8.0.1",
-    "sass": "1.87.0"
+    "sass": "1.88.0"
   },
   "peerDependencies": {
     "sass": "^1.79.0"
