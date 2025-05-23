@@ -47,7 +47,7 @@
     "@forsakringskassan/eslint-config": "11.9.8",
     "@forsakringskassan/eslint-config-cli": "11.9.0",
     "@forsakringskassan/eslint-config-jest": "11.9.7",
-    "@forsakringskassan/jest-config": "29.6.2",
+    "@forsakringskassan/jest-config": "29.6.3",
     "@forsakringskassan/prettier-config": "3.0.5",
     "@jest/globals": "29.7.0",
     "esbuild": "0.25.4",
