@@ -55,7 +55,7 @@
     "jest": "29.7.0",
     "npm-pkg-lint": "4.0.0",
     "npm-run-all2": "8.0.4",
-    "sass": "1.89.1"
+    "sass": "1.89.2"
   },
   "peerDependencies": {
     "sass": "^1.79.0"
