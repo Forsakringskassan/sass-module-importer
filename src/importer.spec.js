@@ -1,11 +1,10 @@
 import process from "node:process";
 
 import { compileString } from "sass";
-import { jest } from "@jest/globals";
 import { moduleImporter } from "./importer";
 
 function init(append) {
-    const spyProcess = jest.spyOn(process, "cwd");
+    const spyProcess = import.meta.jest.spyOn(process, "cwd");
 
     spyProcess.mockReturnValue("./fixtures");
 
