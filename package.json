@@ -48,7 +48,7 @@
     "@forsakringskassan/eslint-config-cli": "11.9.11",
     "@forsakringskassan/eslint-config-jest": "11.9.13",
     "@forsakringskassan/jest-config": "29.6.4",
-    "@forsakringskassan/prettier-config": "3.1.1",
+    "@forsakringskassan/prettier-config": "3.1.2",
     "esbuild": "0.25.5",
     "husky": "9.1.7",
     "npm-pkg-lint": "4.0.0",
