@@ -82,6 +82,7 @@ export const moduleImporter = {
             `${fileName}.scss`,
             `_${fileName}.scss`,
             `${fileName}`,
+            `${fileName}/_index.scss`,
         ];
 
         for (const variant of search) {

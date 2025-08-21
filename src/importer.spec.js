@@ -72,3 +72,10 @@ it("should be able to transform scss when package contains reference to itself",
     `;
     expect(init(append)).toMatchSnapshot();
 });
+
+it("should be able to transform directory imports (index files)", () => {
+    const append = `
+        @use "~@forsakringskassan/a-fancy-package/src/directory";
+    `;
+    expect(init(append)).toMatchSnapshot();
+});
