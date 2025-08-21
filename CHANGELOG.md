@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [1.1.5](https://github.com/Forsakringskassan/sass-module-importer/compare/v1.1.4...v1.1.5) (2025-08-21)
+
+### Bug Fixes
+
+* should be able to import _index files from directories (refs SB-4982) ([9467d2a](https://github.com/Forsakringskassan/sass-module-importer/commit/9467d2ac8f172a1c08b11d59d058fad17446e100))
+
 ## [1.1.4](https://github.com/Forsakringskassan/sass-module-importer/compare/v1.1.3...v1.1.4) (2025-04-22)
 
 ### Bug Fixes
