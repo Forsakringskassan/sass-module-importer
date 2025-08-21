@@ -10,6 +10,16 @@ exports[`should be able to import scss file with same name as package name 1`] =
 }"
 `;
 
+exports[`should be able to transform directory imports (index files) 1`] = `
+".directory {
+  color: pink;
+}
+
+.foo {
+  color: green;
+}"
+`;
+
 exports[`should be able to transform scss using package with exports 1`] = `
 "span {
   color: pink;
