@@ -42,7 +42,7 @@
     "extends": "@forsakringskassan/semantic-release-config"
   },
   "devDependencies": {
-    "@forsakringskassan/commitlint-config": "3.0.4",
+    "@forsakringskassan/commitlint-config": "3.0.5",
     "@forsakringskassan/eslint-config": "12.1.0",
     "@forsakringskassan/eslint-config-cli": "12.1.0",
     "@forsakringskassan/eslint-config-jest": "12.1.0",
