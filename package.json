@@ -48,7 +48,7 @@
     "@forsakringskassan/eslint-config-jest": "13.0.1",
     "@forsakringskassan/jest-config": "29.9.0",
     "@forsakringskassan/prettier-config": "3.1.7",
-    "esbuild": "0.25.9",
+    "esbuild": "0.25.10",
     "npm-pkg-lint": "4.0.5",
     "npm-run-all2": "8.0.4",
     "sass": "1.92.1"
