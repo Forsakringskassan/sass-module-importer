@@ -43,8 +43,8 @@
   },
   "devDependencies": {
     "@forsakringskassan/commitlint-config": "3.0.8",
-    "@forsakringskassan/eslint-config": "13.0.3",
-    "@forsakringskassan/eslint-config-cli": "13.0.0",
+    "@forsakringskassan/eslint-config": "13.0.4",
+    "@forsakringskassan/eslint-config-cli": "13.0.4",
     "@forsakringskassan/eslint-config-jest": "13.0.1",
     "@forsakringskassan/jest-config": "29.9.0",
     "@forsakringskassan/prettier-config": "3.1.7",
