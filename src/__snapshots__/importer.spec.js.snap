@@ -3,20 +3,12 @@
 exports[`should be able to import scss file with same name as package name 1`] = `
 "body {
   background-color: blue;
-}
-
-.foo {
-  color: green;
 }"
 `;
 
 exports[`should be able to transform directory imports (index files) 1`] = `
 ".directory {
   color: pink;
-}
-
-.foo {
-  color: green;
 }"
 `;
 
@@ -27,29 +19,17 @@ exports[`should be able to transform scss using package with exports 1`] = `
 
 body {
   color: orange;
-}
-
-.foo {
-  color: green;
 }"
 `;
 
 exports[`should be able to transform scss using package with main field 1`] = `
 ".main {
   color: blue;
-}
-
-.foo {
-  color: green;
 }"
 `;
 
 exports[`should be able to transform scss using package with sass fields 1`] = `
 ".main {
-  color: green;
-}
-
-.foo {
   color: green;
 }"
 `;
@@ -66,20 +46,12 @@ body {
 
 .reset {
   color: inherit;
-}
-
-.foo {
-  color: green;
 }"
 `;
 
 exports[`should be able to transform scss when package contains reference to itself 1`] = `
 ".self {
   color: inherit;
-}
-
-.foo {
-  color: green;
 }"
 `;
 
@@ -87,9 +59,5 @@ exports[`should be able to transform webpack like paths 1`] = `
 "html,
 body {
   background-color: #12c344;
-}
-
-.foo {
-  color: green;
 }"
 `;
