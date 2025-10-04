@@ -3,17 +3,10 @@ import process from "node:process";
 import { compileString } from "sass";
 import { moduleImporter } from "./importer";
 
-function init(append) {
+function init(scss) {
     const spyProcess = import.meta.jest.spyOn(process, "cwd");
 
     spyProcess.mockReturnValue("./fixtures");
-
-    const scss = `
-        ${append}
-        .foo {
-            color: green;
-        }
-    `;
 
     return compileString(scss, {
         style: "expanded",
