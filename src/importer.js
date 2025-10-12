@@ -1,7 +1,7 @@
-import path from "node:path";
 import { readFileSync } from "node:fs";
-import { pathToFileURL } from "node:url";
 import { createRequire } from "node:module";
+import path from "node:path";
+import { pathToFileURL } from "node:url";
 
 import resolvePackagePath from "resolve-package-path";
 import { exports, legacy } from "resolve.exports";
