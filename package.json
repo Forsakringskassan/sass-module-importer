@@ -51,7 +51,7 @@
     "esbuild": "0.25.11",
     "npm-pkg-lint": "4.2.0",
     "npm-run-all2": "8.0.4",
-    "sass": "1.93.2"
+    "sass": "1.93.3"
   },
   "peerDependencies": {
     "sass": "^1.79.0"
