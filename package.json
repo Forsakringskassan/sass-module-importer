@@ -26,11 +26,11 @@
   "scripts": {
     "build": "node build.mjs",
     "eslint": "eslint .",
-    "eslint:fix": "eslint . --fix",
+    "eslint:fix": "eslint --fix .",
     "lint": "run-s eslint prettier:check",
     "lint:fix": "run-s eslint:fix prettier:write",
-    "prettier:check": "prettier . --check",
-    "prettier:write": "prettier . --write",
+    "prettier:check": "prettier --check .",
+    "prettier:write": "prettier --write .",
     "pretest": "npm run lint",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
@@ -40,6 +40,10 @@
   "prettier": "@forsakringskassan/prettier-config",
   "release": {
     "extends": "@forsakringskassan/semantic-release-config"
+  },
+  "dependencies": {
+    "resolve-package-path": "^4.0.3",
+    "resolve.exports": "^2.0.3"
   },
   "devDependencies": {
     "@forsakringskassan/commitlint-config": "3.2.1",
@@ -59,9 +63,5 @@
   "engines": {
     "node": ">=20.0.0",
     "npm": ">=9.0.0"
-  },
-  "dependencies": {
-    "resolve-package-path": "^4.0.3",
-    "resolve.exports": "^2.0.3"
   }
 }
