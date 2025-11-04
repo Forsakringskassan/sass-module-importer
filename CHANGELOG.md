@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## [1.1.6](https://github.com/Forsakringskassan/sass-module-importer/compare/v1.1.5...v1.1.6) (2025-11-04)
+
+### Bug Fixes
+
+* fix typescript declaration import ([2b39ec1](https://github.com/Forsakringskassan/sass-module-importer/commit/2b39ec1a88001275b01b0df9419c0fe4e4e1d61f))
+
 ## [1.1.5](https://github.com/Forsakringskassan/sass-module-importer/compare/v1.1.4...v1.1.5) (2025-08-21)
 
 ### Bug Fixes
