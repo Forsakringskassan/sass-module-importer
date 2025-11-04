@@ -16,7 +16,10 @@
   "author": "Försäkringskassan",
   "type": "module",
   "exports": {
-    ".": "./dist/importer.js"
+    ".": {
+      "types": "./importer.d.ts",
+      "default": "./dist/importer.js"
+    }
   },
   "types": "./importer.d.ts",
   "files": [
