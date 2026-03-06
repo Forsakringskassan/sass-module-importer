@@ -6,7 +6,7 @@ import { pathToFileURL } from "node:url";
 import resolvePackagePath from "resolve-package-path";
 import { exports, legacy } from "resolve.exports";
 
-import { getPackageNameFromPath } from "./parsePackageName";
+import { getPackageNameFromPath } from "./parse-package-name";
 
 const { findUpPackagePath } = resolvePackagePath;
 const require = createRequire(import.meta.url);
@@ -20,7 +20,7 @@ export const moduleImporter = {
 
         let findUrl = url;
         if (url.startsWith(WEBPACK_NODE_MODULE_PREFIX)) {
-            findUrl = url.substring(1);
+            findUrl = url.slice(1);
         }
 
         const packageName = getPackageNameFromPath(findUrl);
@@ -43,7 +43,7 @@ export const moduleImporter = {
             }
 
             packageJson = JSON.parse(
-                readFileSync(packagePath, { encoding: "utf-8" }),
+                readFileSync(packagePath, { encoding: "utf8" }),
             );
         }
 
@@ -51,7 +51,7 @@ export const moduleImporter = {
 
         /* Check exports */
         try {
-            const match = exports(packageJson, filePath.substring(1), {
+            const match = exports(packageJson, filePath.slice(1), {
                 conditions: ["sass"],
             });
             if (match && match.length === 1) {
@@ -108,7 +108,7 @@ function setSelfPackage() {
     if (!selfPackageJson) {
         selfPackageJsonPath = findUpPackagePath(process.cwd());
         selfPackageJson = JSON.parse(
-            readFileSync(selfPackageJsonPath, { encoding: "utf-8" }),
+            readFileSync(selfPackageJsonPath, { encoding: "utf8" }),
         );
     }
 }

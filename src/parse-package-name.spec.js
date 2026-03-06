@@ -1,4 +1,4 @@
-import { getPackageNameFromPath } from "./parsePackageName";
+import { getPackageNameFromPath } from "./parse-package-name";
 
 it("should return null if invalid package paths", () => {
     expect(getPackageNameFromPath()).toBeNull();
