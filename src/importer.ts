@@ -1,4 +1,3 @@
-import { readFileSync } from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
@@ -7,7 +6,7 @@ import { exports, legacy } from "resolve.exports";
 import { type FileImporter } from "sass";
 
 import { getPackageNameFromPath } from "./parse-package-name";
-import { isErrnoError } from "./utils";
+import { isErrnoError, readJsonFile } from "./utils";
 
 interface PackageJson {
     name: string;
@@ -48,9 +47,7 @@ export const moduleImporter: FileImporter = {
                 return null;
             }
 
-            packageJson = JSON.parse(
-                readFileSync(packagePath, { encoding: "utf8" }),
-            ) as PackageJson;
+            packageJson = readJsonFile(packagePath) as PackageJson;
         }
 
         /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- technical debt */
@@ -117,8 +114,6 @@ function setSelfPackage(): void {
         if (!selfPackageJsonPath) {
             throw new Error("Could not find package.json");
         }
-        selfPackageJson = JSON.parse(
-            readFileSync(selfPackageJsonPath, { encoding: "utf8" }),
-        ) as PackageJson;
+        selfPackageJson = readJsonFile(selfPackageJsonPath) as PackageJson;
     }
 }
