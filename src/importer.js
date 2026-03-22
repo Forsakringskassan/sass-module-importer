@@ -66,7 +66,7 @@ export const moduleImporter = {
         /* Check main fields (only applies if only package path is given) */
         if (!filePath) {
             const match = legacy(packageJson, { fields: ["sass", "main"] });
-            if (match) {
+            if (match && typeof match === "string") {
                 return new URL(
                     pathToFileURL(path.join(moduleDirectory, match)),
                 );
@@ -95,7 +95,11 @@ export const moduleImporter = {
                 const resolved = require.resolve(moduleName);
                 return new URL(pathToFileURL(resolved));
             } catch (err) {
-                if (err.code !== "MODULE_NOT_FOUND") {
+                if (
+                    err instanceof Error &&
+                    "code" in err &&
+                    err.code !== "MODULE_NOT_FOUND"
+                ) {
                     throw err;
                 }
             }
@@ -107,6 +111,9 @@ export const moduleImporter = {
 function setSelfPackage() {
     if (!selfPackageJson) {
         selfPackageJsonPath = findUpPackagePath(process.cwd());
+        if (!selfPackageJsonPath) {
+            throw new Error("Could not find package.json");
+        }
         selfPackageJson = JSON.parse(
             readFileSync(selfPackageJsonPath, { encoding: "utf8" }),
         );

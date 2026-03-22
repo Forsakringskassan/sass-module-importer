@@ -1,0 +1,20 @@
+{
+    "extends": [
+        "@tsconfig/node20",
+        "@tsconfig/recommended",
+        "@tsconfig/strictest"
+    ],
+    "compilerOptions": {
+        "noEmit": true,
+        "module": "esnext",
+        "moduleResolution": "bundler",
+        "types": ["node", "jest"],
+
+        "allowJs": true,
+        "checkJs": true,
+
+        "noImplicitAny": false,
+        "noUncheckedIndexedAccess": false
+    },
+    "include": ["src/**/*"]
+}
