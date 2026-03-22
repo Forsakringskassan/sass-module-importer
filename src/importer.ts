@@ -4,9 +4,13 @@ import { pathToFileURL } from "node:url";
 import resolvePackagePath from "resolve-package-path";
 import { exports, legacy } from "resolve.exports";
 import { type FileImporter } from "sass";
-
-import { getPackageNameFromPath } from "./parse-package-name";
-import { isErrnoError, isWebpackPrefix, memoize, readJsonFile } from "./utils";
+import {
+    getPackageNameFromPath,
+    isErrnoError,
+    isWebpackPrefix,
+    memoize,
+    readJsonFile,
+} from "./utils";
 
 interface PackageJson {
     name: string;
