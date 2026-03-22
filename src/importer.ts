@@ -7,6 +7,7 @@ import { exports, legacy } from "resolve.exports";
 import { type FileImporter } from "sass";
 
 import { getPackageNameFromPath } from "./parse-package-name";
+import { isErrnoError } from "./utils";
 
 interface PackageJson {
     name: string;
@@ -101,11 +102,7 @@ export const moduleImporter: FileImporter = {
                 const resolved = require.resolve(moduleName);
                 return new URL(pathToFileURL(resolved));
             } catch (err) {
-                if (
-                    err instanceof Error &&
-                    "code" in err &&
-                    err.code !== "MODULE_NOT_FOUND"
-                ) {
+                if (isErrnoError(err) && err.code !== "MODULE_NOT_FOUND") {
                     throw err;
                 }
             }
