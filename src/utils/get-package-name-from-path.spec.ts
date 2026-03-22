@@ -6,6 +6,12 @@ it("should return null if invalid package paths", () => {
     expect(getPackageNameFromPath(null)).toBeNull();
 });
 
+it("should return null for local paths", () => {
+    expect(getPackageNameFromPath(".")).toBeNull();
+    expect(getPackageNameFromPath("./path")).toBeNull();
+    expect(getPackageNameFromPath("/absolute/path")).toBeNull();
+});
+
 it("should be able to parse scoped packages", () => {
     expect(getPackageNameFromPath("@fancyScope/fancyPackage")).toBe(
         "@fancyScope/fancyPackage",
