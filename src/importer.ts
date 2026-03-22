@@ -6,14 +6,13 @@ import { exports, legacy } from "resolve.exports";
 import { type FileImporter } from "sass";
 
 import { getPackageNameFromPath } from "./parse-package-name";
-import { isErrnoError, memoize, readJsonFile } from "./utils";
+import { isErrnoError, isWebpackPrefix, memoize, readJsonFile } from "./utils";
 
 interface PackageJson {
     name: string;
 }
 
 const { findUpPackagePath } = resolvePackagePath;
-const WEBPACK_NODE_MODULE_PREFIX = "~";
 
 const getSelfPackagePath = memoize((cwd: string) => {
     const selfPackageJsonPath = findUpPackagePath(cwd);
@@ -31,7 +30,9 @@ const getSelfPackageJson = memoize((cwd: string) => {
 export const moduleImporter: FileImporter = {
     findFileUrl(url) {
         let findUrl = url;
-        if (url.startsWith(WEBPACK_NODE_MODULE_PREFIX)) {
+
+        /* strip the leading webpack `~` prefix if present */
+        if (isWebpackPrefix(url)) {
             findUrl = url.slice(1);
         }
 
