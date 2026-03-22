@@ -5,10 +5,10 @@ import resolvePackagePath from "resolve-package-path";
 import { exports, legacy } from "resolve.exports";
 import { type FileImporter } from "sass";
 import {
-    getPackageNameFromPath,
     isErrnoError,
     isWebpackPrefix,
     memoize,
+    parseImport,
     readJsonFile,
 } from "./utils";
 
@@ -40,12 +40,9 @@ export const moduleImporter: FileImporter = {
             findUrl = url.slice(1);
         }
 
-        /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- technical debt */
-        const packageName = getPackageNameFromPath(findUrl)!;
-        const filePath = findUrl.replace(packageName, "");
-
-        /* Validate if packageName is valid */
-        if (!packageName) {
+        /* parse the import url to the package name and subpath */
+        const { name, subpath } = parseImport(findUrl);
+        if (!name) {
             return null;
         }
 
@@ -53,8 +50,8 @@ export const moduleImporter: FileImporter = {
         let packageJson: PackageJson = getSelfPackageJson(cwd);
         let packagePath: string = getSelfPackagePath(cwd);
 
-        if (packageJson.name !== packageName) {
-            const localPath = resolvePackagePath(packageName, cwd);
+        if (packageJson.name !== name) {
+            const localPath = resolvePackagePath(name, cwd);
 
             /* Validate if existing package */
             if (!localPath) {
@@ -69,7 +66,7 @@ export const moduleImporter: FileImporter = {
 
         /* Check exports */
         try {
-            const match = exports(packageJson, filePath.slice(1), {
+            const match = exports(packageJson, subpath.slice(1), {
                 conditions: ["sass"],
             });
             if (match && match.length === 1) {
@@ -82,7 +79,7 @@ export const moduleImporter: FileImporter = {
         }
 
         /* Check main fields (only applies if only package path is given) */
-        if (!filePath) {
+        if (subpath === "") {
             const match = legacy(packageJson, { fields: ["sass", "main"] });
             if (match && typeof match === "string") {
                 return new URL(
@@ -92,8 +89,8 @@ export const moduleImporter: FileImporter = {
         }
 
         /* Direct link */
-        const directory = path.dirname(filePath);
-        const fileName = path.basename(filePath);
+        const directory = path.dirname(subpath);
+        const fileName = path.basename(subpath);
 
         const search = [
             `${fileName}.css`,
