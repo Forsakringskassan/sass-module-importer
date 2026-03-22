@@ -1,20 +1,24 @@
 import { readFileSync } from "node:fs";
-import { createRequire } from "node:module";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
 import resolvePackagePath from "resolve-package-path";
 import { exports, legacy } from "resolve.exports";
+import { type FileImporter } from "sass";
 
 import { getPackageNameFromPath } from "./parse-package-name";
 
+interface PackageJson {
+    name: string;
+}
+
 const { findUpPackagePath } = resolvePackagePath;
-const require = createRequire(import.meta.url);
 const WEBPACK_NODE_MODULE_PREFIX = "~";
 
-let selfPackageJson = null;
-let selfPackageJsonPath = null;
-export const moduleImporter = {
+let selfPackageJson: PackageJson | null = null;
+let selfPackageJsonPath: string | null = null;
+
+export const moduleImporter: FileImporter = {
     findFileUrl(url) {
         setSelfPackage();
 
@@ -23,7 +27,8 @@ export const moduleImporter = {
             findUrl = url.slice(1);
         }
 
-        const packageName = getPackageNameFromPath(findUrl);
+        /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- technical debt */
+        const packageName = getPackageNameFromPath(findUrl)!;
         const filePath = findUrl.replace(packageName, "");
 
         /* Validate if packageName is valid */
@@ -31,10 +36,10 @@ export const moduleImporter = {
             return null;
         }
 
-        let packageJson = selfPackageJson;
-        let packagePath = selfPackageJsonPath;
+        let packageJson: PackageJson | null = selfPackageJson;
+        let packagePath: string | null = selfPackageJsonPath;
 
-        if (selfPackageJson.name !== packageName) {
+        if (selfPackageJson?.name !== packageName) {
             packagePath = resolvePackagePath(packageName, process.cwd());
 
             /* Validate if existing package */
@@ -44,10 +49,11 @@ export const moduleImporter = {
 
             packageJson = JSON.parse(
                 readFileSync(packagePath, { encoding: "utf8" }),
-            );
+            ) as PackageJson;
         }
 
-        const moduleDirectory = path.dirname(packagePath);
+        /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- technical debt */
+        const moduleDirectory = path.dirname(packagePath!);
 
         /* Check exports */
         try {
@@ -81,7 +87,7 @@ export const moduleImporter = {
             `${fileName}.css`,
             `${fileName}.scss`,
             `_${fileName}.scss`,
-            `${fileName}`,
+            fileName,
             `${fileName}/_index.scss`,
         ];
 
@@ -108,7 +114,7 @@ export const moduleImporter = {
     },
 };
 
-function setSelfPackage() {
+function setSelfPackage(): void {
     if (!selfPackageJson) {
         selfPackageJsonPath = findUpPackagePath(process.cwd());
         if (!selfPackageJsonPath) {
@@ -116,6 +122,6 @@ function setSelfPackage() {
         }
         selfPackageJson = JSON.parse(
             readFileSync(selfPackageJsonPath, { encoding: "utf8" }),
-        );
+        ) as PackageJson;
     }
 }
