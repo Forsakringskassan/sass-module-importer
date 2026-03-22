@@ -1,20 +1,14 @@
 import path from "node:path";
-import { pathToFileURL } from "node:url";
 
 import resolvePackagePath from "resolve-package-path";
-import { exports, legacy } from "resolve.exports";
 import { type FileImporter } from "sass";
 import {
-    isErrnoError,
-    isWebpackPrefix,
-    memoize,
-    parseImport,
-    readJsonFile,
-} from "./utils";
-
-interface PackageJson {
-    name: string;
-}
+    tryPackageExports,
+    tryPackageMain,
+    tryRequireResolve,
+} from "./resolvers";
+import { type PackageJson } from "./types";
+import { isWebpackPrefix, memoize, parseImport, readJsonFile } from "./utils";
 
 const { findUpPackagePath } = resolvePackagePath;
 
@@ -30,6 +24,16 @@ const getSelfPackageJson = memoize((cwd: string) => {
     const filePath = getSelfPackagePath(cwd);
     return readJsonFile(filePath) as PackageJson;
 });
+
+function lazyEvaluateEach(fns: Array<() => URL | null>): URL | null {
+    for (const fn of fns) {
+        const result = fn();
+        if (result) {
+            return result;
+        }
+    }
+    return null;
+}
 
 export const moduleImporter: FileImporter = {
     findFileUrl(url) {
@@ -64,57 +68,10 @@ export const moduleImporter: FileImporter = {
 
         const moduleDirectory = path.dirname(packagePath);
 
-        /* Check exports */
-        try {
-            const match = exports(packageJson, subpath.slice(1), {
-                conditions: ["sass"],
-            });
-            if (match && match.length === 1) {
-                return new URL(
-                    pathToFileURL(path.join(moduleDirectory, match[0])),
-                );
-            }
-        } catch {
-            /* empty */
-        }
-
-        /* Check main fields (only applies if only package path is given) */
-        if (subpath === "") {
-            const match = legacy(packageJson, { fields: ["sass", "main"] });
-            if (match && typeof match === "string") {
-                return new URL(
-                    pathToFileURL(path.join(moduleDirectory, match)),
-                );
-            }
-        }
-
-        /* Direct link */
-        const directory = path.dirname(subpath);
-        const fileName = path.basename(subpath);
-
-        const search = [
-            `${fileName}.css`,
-            `${fileName}.scss`,
-            `_${fileName}.scss`,
-            fileName,
-            `${fileName}/_index.scss`,
-        ];
-
-        for (const variant of search) {
-            try {
-                const moduleName = path.posix.join(
-                    moduleDirectory,
-                    directory,
-                    variant,
-                );
-                const resolved = require.resolve(moduleName);
-                return new URL(pathToFileURL(resolved));
-            } catch (err) {
-                if (isErrnoError(err) && err.code !== "MODULE_NOT_FOUND") {
-                    throw err;
-                }
-            }
-        }
-        return null;
+        return lazyEvaluateEach([
+            () => tryPackageExports(packageJson, subpath, moduleDirectory),
+            () => tryPackageMain(packageJson, subpath, moduleDirectory),
+            () => tryRequireResolve(subpath, moduleDirectory, require),
+        ]);
     },
 };
