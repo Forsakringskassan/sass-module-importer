@@ -3,8 +3,8 @@ import process from "node:process";
 import { compileString } from "sass";
 import { moduleImporter } from "./importer";
 
-function init(scss) {
-    const spyProcess = import.meta.jest.spyOn(process, "cwd");
+function init(scss: string): string {
+    const spyProcess = jest.spyOn(process, "cwd");
 
     spyProcess.mockReturnValue("./fixtures");
 

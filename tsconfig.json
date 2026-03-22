@@ -9,12 +9,8 @@
         "module": "esnext",
         "moduleResolution": "bundler",
         "types": ["node", "jest"],
-
-        "allowJs": true,
-        "checkJs": true,
-
         "noImplicitAny": false,
         "noUncheckedIndexedAccess": false
     },
-    "include": ["src/**/*"]
+    "include": ["src/**/*.ts"]
 }
