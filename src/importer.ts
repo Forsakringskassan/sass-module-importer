@@ -6,7 +6,7 @@ import { exports, legacy } from "resolve.exports";
 import { type FileImporter } from "sass";
 
 import { getPackageNameFromPath } from "./parse-package-name";
-import { isErrnoError, readJsonFile } from "./utils";
+import { isErrnoError, memoize, readJsonFile } from "./utils";
 
 interface PackageJson {
     name: string;
@@ -15,13 +15,21 @@ interface PackageJson {
 const { findUpPackagePath } = resolvePackagePath;
 const WEBPACK_NODE_MODULE_PREFIX = "~";
 
-let selfPackageJson: PackageJson | null = null;
-let selfPackageJsonPath: string | null = null;
+const getSelfPackagePath = memoize((cwd: string) => {
+    const selfPackageJsonPath = findUpPackagePath(cwd);
+    if (!selfPackageJsonPath) {
+        throw new Error("Could not find package.json");
+    }
+    return selfPackageJsonPath;
+});
+
+const getSelfPackageJson = memoize((cwd: string) => {
+    const filePath = getSelfPackagePath(cwd);
+    return readJsonFile(filePath) as PackageJson;
+});
 
 export const moduleImporter: FileImporter = {
     findFileUrl(url) {
-        setSelfPackage();
-
         let findUrl = url;
         if (url.startsWith(WEBPACK_NODE_MODULE_PREFIX)) {
             findUrl = url.slice(1);
@@ -36,22 +44,23 @@ export const moduleImporter: FileImporter = {
             return null;
         }
 
-        let packageJson: PackageJson | null = selfPackageJson;
-        let packagePath: string | null = selfPackageJsonPath;
+        const cwd = process.cwd();
+        let packageJson: PackageJson = getSelfPackageJson(cwd);
+        let packagePath: string = getSelfPackagePath(cwd);
 
-        if (selfPackageJson?.name !== packageName) {
-            packagePath = resolvePackagePath(packageName, process.cwd());
+        if (packageJson.name !== packageName) {
+            const localPath = resolvePackagePath(packageName, cwd);
 
             /* Validate if existing package */
-            if (!packagePath) {
+            if (!localPath) {
                 return null;
             }
 
-            packageJson = readJsonFile(packagePath) as PackageJson;
+            packageJson = readJsonFile(localPath) as PackageJson;
+            packagePath = localPath;
         }
 
-        /* eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- technical debt */
-        const moduleDirectory = path.dirname(packagePath!);
+        const moduleDirectory = path.dirname(packagePath);
 
         /* Check exports */
         try {
@@ -107,13 +116,3 @@ export const moduleImporter: FileImporter = {
         return null;
     },
 };
-
-function setSelfPackage(): void {
-    if (!selfPackageJson) {
-        selfPackageJsonPath = findUpPackagePath(process.cwd());
-        if (!selfPackageJsonPath) {
-            throw new Error("Could not find package.json");
-        }
-        selfPackageJson = readJsonFile(selfPackageJsonPath) as PackageJson;
-    }
-}
