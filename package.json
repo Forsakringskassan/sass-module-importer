@@ -17,18 +17,18 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./importer.d.ts",
+      "types": "./dist/importer.d.ts",
       "default": "./dist/importer.js"
     }
   },
-  "types": "./importer.d.ts",
+  "types": "./dist/importer.d.ts",
   "files": [
-    "dist",
-    "importer.d.ts"
+    "dist"
   ],
   "scripts": {
     "prebuild": "tsc",
     "build": "node build.mjs",
+    "postbuild": "dts-bundle-generator -o dist/importer.d.ts src/importer.ts",
     "eslint": "eslint .",
     "eslint:fix": "eslint --fix .",
     "lint": "run-s eslint prettier:check",
@@ -63,6 +63,7 @@
     "@tsconfig/strictest": "2.0.8",
     "@types/jest": "30.0.0",
     "@types/node": "20.19.37",
+    "dts-bundle-generator": "9.5.1",
     "esbuild": "0.27.4",
     "npm-pkg-lint": "4.5.0",
     "npm-run-all2": "8.0.4",
