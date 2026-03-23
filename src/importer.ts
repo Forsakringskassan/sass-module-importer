@@ -35,43 +35,45 @@ function lazyEvaluateEach(fns: Array<() => URL | null>): URL | null {
     return null;
 }
 
-export const moduleImporter: FileImporter = {
-    findFileUrl(url) {
-        let findUrl = url;
+export function moduleImporter(): FileImporter {
+    return {
+        findFileUrl(url) {
+            let findUrl = url;
 
-        /* strip the leading webpack `~` prefix if present */
-        if (isWebpackPrefix(url)) {
-            findUrl = url.slice(1);
-        }
+            /* strip the leading webpack `~` prefix if present */
+            if (isWebpackPrefix(url)) {
+                findUrl = url.slice(1);
+            }
 
-        /* parse the import url to the package name and subpath */
-        const { name, subpath } = parseImport(findUrl);
-        if (!name) {
-            return null;
-        }
-
-        const cwd = process.cwd();
-        let packageJson: PackageJson = getSelfPackageJson(cwd);
-        let packagePath: string = getSelfPackagePath(cwd);
-
-        if (packageJson.name !== name) {
-            const localPath = resolvePackagePath(name, cwd);
-
-            /* Validate if existing package */
-            if (!localPath) {
+            /* parse the import url to the package name and subpath */
+            const { name, subpath } = parseImport(findUrl);
+            if (!name) {
                 return null;
             }
 
-            packageJson = readJsonFile(localPath) as PackageJson;
-            packagePath = localPath;
-        }
+            const cwd = process.cwd();
+            let packageJson: PackageJson = getSelfPackageJson(cwd);
+            let packagePath: string = getSelfPackagePath(cwd);
 
-        const moduleDirectory = path.dirname(packagePath);
+            if (packageJson.name !== name) {
+                const localPath = resolvePackagePath(name, cwd);
 
-        return lazyEvaluateEach([
-            () => tryPackageExports(packageJson, subpath, moduleDirectory),
-            () => tryPackageMain(packageJson, subpath, moduleDirectory),
-            () => tryRequireResolve(subpath, moduleDirectory, require),
-        ]);
-    },
-};
+                /* Validate if existing package */
+                if (!localPath) {
+                    return null;
+                }
+
+                packageJson = readJsonFile(localPath) as PackageJson;
+                packagePath = localPath;
+            }
+
+            const moduleDirectory = path.dirname(packagePath);
+
+            return lazyEvaluateEach([
+                () => tryPackageExports(packageJson, subpath, moduleDirectory),
+                () => tryPackageMain(packageJson, subpath, moduleDirectory),
+                () => tryRequireResolve(subpath, moduleDirectory, require),
+            ]);
+        },
+    };
+}

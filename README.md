@@ -22,6 +22,6 @@ import { compileStringAsync } from "sass";
 import { moduleImporter } from "@forsakringskassan/sass-module-importer";
 
 const result = await compileStringAsync(mySCSS, {
-    importers: [moduleImporter],
+    importers: [moduleImporter()],
 });
 ```
