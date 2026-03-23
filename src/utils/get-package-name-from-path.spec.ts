@@ -1,9 +1,15 @@
-import { getPackageNameFromPath } from "./parse-package-name";
+import { getPackageNameFromPath } from "./get-package-name-from-path";
 
 it("should return null if invalid package paths", () => {
     expect(getPackageNameFromPath()).toBeNull();
     expect(getPackageNameFromPath("")).toBeNull();
     expect(getPackageNameFromPath(null)).toBeNull();
+});
+
+it("should return null for local paths", () => {
+    expect(getPackageNameFromPath(".")).toBeNull();
+    expect(getPackageNameFromPath("./path")).toBeNull();
+    expect(getPackageNameFromPath("/absolute/path")).toBeNull();
 });
 
 it("should be able to parse scoped packages", () => {
