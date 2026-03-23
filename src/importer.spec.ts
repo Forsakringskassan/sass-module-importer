@@ -10,7 +10,7 @@ function init(scss: string): string {
 
     return compileString(scss, {
         style: "expanded",
-        importers: [moduleImporter],
+        importers: [moduleImporter()],
     }).css;
 }
 
