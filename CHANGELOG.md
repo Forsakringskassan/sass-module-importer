@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## [2.0.0](https://github.com/Forsakringskassan/sass-module-importer/compare/v1.1.6...v2.0.0) (2026-03-27)
+
+### ⚠ BREAKING CHANGES
+
+* This package now exports a factory function instead of the
+importer object directly.
+
+```diff
+ const result = await compileStringAsync(mySCSS, {
+-    importers: [moduleImporter],
++    importers: [moduleImporter()],
+ });
+```
+
+### Features
+
+* module exports a factory function instead of object ([184674c](https://github.com/Forsakringskassan/sass-module-importer/commit/184674c1bc697f10c75a34e829bf198bf798949b))
+
 ## [1.1.6](https://github.com/Forsakringskassan/sass-module-importer/compare/v1.1.5...v1.1.6) (2025-11-04)
 
 ### Bug Fixes
