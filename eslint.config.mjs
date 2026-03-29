@@ -1,8 +1,8 @@
 import defaultConfig, { defineConfig } from "@forsakringskassan/eslint-config";
 import cliConfig from "@forsakringskassan/eslint-config-cli";
-import jestConfig from "@forsakringskassan/eslint-config-jest";
 import typescriptConfig from "@forsakringskassan/eslint-config-typescript";
 import typeinfoConfig from "@forsakringskassan/eslint-config-typescript-typeinfo";
+import vitestConfig from "@forsakringskassan/eslint-config-vitest";
 
 export default [
     defineConfig({
@@ -22,7 +22,7 @@ export default [
     ...defaultConfig,
 
     cliConfig(),
-    jestConfig(),
     typescriptConfig(),
     typeinfoConfig(import.meta.dirname),
+    vitestConfig(),
 ];

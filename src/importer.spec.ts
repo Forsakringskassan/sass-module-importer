@@ -1,12 +1,14 @@
+import path from "node:path";
 import process from "node:process";
-
 import { compileString } from "sass";
+import { expect, it, vi } from "vitest";
 import { moduleImporter } from "./importer";
 
-function init(scss: string): string {
-    const spyProcess = jest.spyOn(process, "cwd");
+const fixturesPath = path.join(import.meta.dirname, "../fixtures");
 
-    spyProcess.mockReturnValue("./fixtures");
+function init(scss: string): string {
+    const spyProcess = vi.spyOn(process, "cwd");
+    spyProcess.mockReturnValue(fixturesPath);
 
     return compileString(scss, {
         style: "expanded",
@@ -15,6 +17,7 @@ function init(scss: string): string {
 }
 
 it("should be able to transform scss using package without exports and main fields", () => {
+    expect.assertions(1);
     const append = `
         @use "@forsakringskassan/a-fancy-package/src/default.scss";
         @use "@forsakringskassan/a-fancy-package/src/extra.scss";
@@ -24,6 +27,7 @@ it("should be able to transform scss using package without exports and main fiel
 });
 
 it("should be able to import scss file with same name as package name", () => {
+    expect.assertions(1);
     const append = `
         @use "get-css-variables/src/get-css-variables";
     `;
@@ -31,6 +35,7 @@ it("should be able to import scss file with same name as package name", () => {
 });
 
 it("should be able to transform webpack like paths", () => {
+    expect.assertions(1);
     const append = `
         @use "~@forsakringskassan/a-fancy-package/src/default.scss";
     `;
@@ -38,6 +43,7 @@ it("should be able to transform webpack like paths", () => {
 });
 
 it("should be able to transform scss using package with exports", () => {
+    expect.assertions(1);
     const append = `
         @use "@forsakringskassan/package-with-exports";
         @use "@forsakringskassan/package-with-exports/anotherFile";
@@ -46,6 +52,7 @@ it("should be able to transform scss using package with exports", () => {
 });
 
 it("should be able to transform scss using package with main field", () => {
+    expect.assertions(1);
     const append = `
         @use "@forsakringskassan/package-with-main-field";
     `;
@@ -53,6 +60,7 @@ it("should be able to transform scss using package with main field", () => {
 });
 
 it("should be able to transform scss using package with sass fields", () => {
+    expect.assertions(1);
     const append = `
         @use "@forsakringskassan/package-with-sass-field";
     `;
@@ -60,6 +68,7 @@ it("should be able to transform scss using package with sass fields", () => {
 });
 
 it("should be able to transform scss when package contains reference to itself", () => {
+    expect.assertions(1);
     const append = `
         @use "@forsakringskassan/self-package/src/main";
     `;
@@ -67,6 +76,7 @@ it("should be able to transform scss when package contains reference to itself",
 });
 
 it("should be able to transform directory imports (index files)", () => {
+    expect.assertions(1);
     const append = `
         @use "~@forsakringskassan/a-fancy-package/src/directory";
     `;
