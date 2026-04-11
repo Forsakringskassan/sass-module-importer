@@ -57,7 +57,7 @@
     "@forsakringskassan/eslint-config-typescript-typeinfo": "14.1.0",
     "@forsakringskassan/eslint-config-vitest": "14.1.1",
     "@forsakringskassan/prettier-config": "3.3.6",
-    "@forsakringskassan/vitest-config": "2.2.3",
+    "@forsakringskassan/vitest-config": "2.2.5",
     "@tsconfig/node20": "20.1.9",
     "@tsconfig/recommended": "1.0.13",
     "@tsconfig/strictest": "2.0.8",
