@@ -8,7 +8,7 @@ await build({
     external: ["resolve-package-path", "resolve.exports"],
     platform: "node",
     format: "esm",
-    target: "node20",
+    target: "node22",
     banner: {
         js: [
             "import { createRequire } from 'node:module';",
