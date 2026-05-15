@@ -1,6 +1,6 @@
 {
     "extends": [
-        "@tsconfig/node20",
+        "@tsconfig/node22",
         "@tsconfig/recommended",
         "@tsconfig/strictest"
     ],

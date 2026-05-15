@@ -58,10 +58,10 @@
     "@forsakringskassan/eslint-config-vitest": "14.1.25",
     "@forsakringskassan/prettier-config": "3.3.10",
     "@forsakringskassan/vitest-config": "2.2.8",
-    "@tsconfig/node20": "20.1.9",
+    "@tsconfig/node22": "22.0.5",
     "@tsconfig/recommended": "1.0.13",
     "@tsconfig/strictest": "2.0.8",
-    "@types/node": "20.19.41",
+    "@types/node": "22.19.19",
     "dts-bundle-generator": "9.5.1",
     "esbuild": "0.28.0",
     "npm-pkg-lint": "4.6.9",
@@ -74,7 +74,7 @@
     "sass": "^1.79.0"
   },
   "engines": {
-    "node": ">=20.0.0",
+    "node": "^22.16 || >= 24",
     "npm": ">=9.0.0"
   }
 }
