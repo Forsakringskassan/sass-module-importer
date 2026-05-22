@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## [3.0.0](https://github.com/Forsakringskassan/sass-module-importer/compare/v2.0.0...v3.0.0) (2026-05-22)
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** NodeJS v22 or later is now required.
+
+### Features
+
+* **deps:** require nodejs v22 or later ([dfc3e2d](https://github.com/Forsakringskassan/sass-module-importer/commit/dfc3e2d660ea6fc94f9e03b5a606ef2a73414e7d))
+
 ## [2.0.0](https://github.com/Forsakringskassan/sass-module-importer/compare/v1.1.6...v2.0.0) (2026-03-27)
 
 ### ⚠ BREAKING CHANGES
