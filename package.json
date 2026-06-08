@@ -50,7 +50,7 @@
     "resolve.exports": "^2.0.3"
   },
   "devDependencies": {
-    "@forsakringskassan/commitlint-config": "3.6.4",
+    "@forsakringskassan/commitlint-config": "3.6.7",
     "@forsakringskassan/eslint-config": "15.0.10",
     "@forsakringskassan/eslint-config-cli": "15.0.0",
     "@forsakringskassan/eslint-config-typescript": "15.0.13",
