@@ -33,6 +33,7 @@
     "eslint:fix": "eslint --fix .",
     "lint": "run-s eslint prettier:check",
     "lint:fix": "run-s eslint:fix prettier:write",
+    "prepare": "commitlint-config",
     "prettier:check": "prettier --check .",
     "prettier:write": "prettier --write .",
     "pretest": "npm run lint",
@@ -50,7 +51,7 @@
     "resolve.exports": "^2.0.3"
   },
   "devDependencies": {
-    "@forsakringskassan/commitlint-config": "3.6.9",
+    "@forsakringskassan/commitlint-config": "4.0.0",
     "@forsakringskassan/eslint-config": "15.0.17",
     "@forsakringskassan/eslint-config-cli": "15.0.0",
     "@forsakringskassan/eslint-config-typescript": "15.0.16",
@@ -76,5 +77,11 @@
   "engines": {
     "node": "^22.16 || >= 24",
     "npm": ">=9.0.0"
+  },
+  "allowScripts": {
+    "@parcel/watcher": false,
+    "esbuild": true,
+    "fsevents": false,
+    "unrs-resolver": true
   }
 }
