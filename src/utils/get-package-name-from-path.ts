@@ -26,7 +26,6 @@ export function getPackageNameFromPath(input?: string | null): string | null {
     const parts = input.split("/");
     if (isScoped(input) && parts.length > 1) {
         return `${parts[0]}/${parts[1]}`;
-    } else {
-        return parts[0];
     }
+    return parts[0];
 }
