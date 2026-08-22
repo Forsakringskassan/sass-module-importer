@@ -70,7 +70,7 @@
     "npm-run-all2": "9.0.3",
     "sass": "1.102.0",
     "typescript": "npm:@typescript/typescript6@6.0.2",
-    "vitest": "4.1.10"
+    "vitest": "4.1.11"
   },
   "peerDependencies": {
     "sass": "^1.79.0"
