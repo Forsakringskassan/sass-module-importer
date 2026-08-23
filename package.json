@@ -68,7 +68,7 @@
     "esbuild": "0.28.2",
     "npm-pkg-lint": "5.2.3",
     "npm-run-all2": "9.0.3",
-    "sass": "1.102.0",
+    "sass": "1.103.0",
     "typescript": "npm:@typescript/typescript6@6.0.2",
     "vitest": "4.1.11"
   },
