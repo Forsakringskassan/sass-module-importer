@@ -39,6 +39,12 @@
     "pretest": "npm run lint",
     "test": "vitest run"
   },
+  "allowScripts": {
+    "@parcel/watcher": false,
+    "esbuild": true,
+    "fsevents": false,
+    "unrs-resolver": true
+  },
   "commitlint": {
     "extends": "@forsakringskassan/commitlint-config/no-jira"
   },
@@ -57,7 +63,7 @@
     "@forsakringskassan/eslint-config-typescript": "15.12.6",
     "@forsakringskassan/eslint-config-typescript-typeinfo": "15.12.6",
     "@forsakringskassan/eslint-config-vitest": "15.12.5",
-    "@forsakringskassan/prettier-config": "3.7.12",
+    "@forsakringskassan/prettier-config": "3.7.13",
     "@forsakringskassan/vitest-config": "5.0.1",
     "@tsconfig/node22": "22.0.6",
     "@tsconfig/recommended": "1.0.13",
@@ -78,11 +84,5 @@
   "engines": {
     "node": "^22.16 || >= 24",
     "npm": ">=9.0.0"
-  },
-  "allowScripts": {
-    "@parcel/watcher": false,
-    "esbuild": true,
-    "fsevents": false,
-    "unrs-resolver": true
   }
 }
